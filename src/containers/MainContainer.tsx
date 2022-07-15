@@ -83,6 +83,7 @@ const MainContainer = () => {
     <div className="mainContainer">
       {IsLoading ? (
         <div className="container">
+          <h1>Productos ofrecidos por la Tienda</h1>
           <Box
             className="container-button"
             sx={{
