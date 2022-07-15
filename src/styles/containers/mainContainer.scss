@@ -20,7 +20,7 @@
       padding: 3rem 0rem;
       color: #1976d2;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 768px) {
         padding: 1.5rem 0rem;
       }
     }
@@ -30,7 +30,7 @@
       justify-content: right;
       width: 100%;
       margin-bottom: 1rem;
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 768px) {
         margin-bottom: 1.5rem;
         justify-content: center;
       }
