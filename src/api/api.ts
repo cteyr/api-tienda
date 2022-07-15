@@ -26,7 +26,7 @@ const request = async (
   };
 
   type IResponse =
-   { response: Product; error: null }
+   { response: Product[]; error: null }
   |{ response: null; error: Error };
   
   const api = { getProducts };
