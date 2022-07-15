@@ -12,11 +12,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
 import { DotSpinner } from "@uiball/loaders";
+import orderBy from "lodash/orderBy";
 
 const MainContainer = () => {
   const [Products, setProducts] = useState<Product[]>([]);
   const [IsLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [Order, setOrder] = useState("asc");
 
   const handleResponse = async () => {
     const { response, error } = await api.getProducts();
@@ -47,6 +49,18 @@ const MainContainer = () => {
   useEffect(() => {
     handleResponse();
   }, []);
+
+  const HandelSort = (columnName: string) => {
+    if (Order == "asc") {
+      let newProductOrder = orderBy(Products, [columnName], [Order]);
+      setOrder("desc");
+      setProducts(newProductOrder);
+    } else if (Order == "desc") {
+      let newProductOrder = orderBy(Products, [columnName], [Order]);
+      setOrder("asc");
+      setProducts(newProductOrder);
+    }
+  };
 
   return (
     <div className="mainContainer">
@@ -81,26 +95,30 @@ const MainContainer = () => {
                   <TableCell
                     align="center"
                     style={{ width: "50px", backgroundColor: "#2196f3" }}
+                    onClick={() => HandelSort("id")}
                   >
-                    ID
+                    <span className="TextTableHead">Id</span>
                   </TableCell>
                   <TableCell
                     align="center"
                     style={{ width: "400px", backgroundColor: "#2196f3" }}
+                    onClick={() => HandelSort("title")}
                   >
-                    Title
+                    <span className="TextTableHead">Title</span>
                   </TableCell>
                   <TableCell
                     align="center"
                     style={{ width: "150px", backgroundColor: "#2196f3" }}
+                    onClick={() => HandelSort("category")}
                   >
-                    Category
+                    <span className="TextTableHead">Category</span>
                   </TableCell>
                   <TableCell
                     align="center"
                     style={{ width: "150px", backgroundColor: "#2196f3" }}
+                    onClick={() => HandelSort("price")}
                   >
-                    Price
+                    <span className="TextTableHead">Price</span>
                   </TableCell>
                 </TableRow>
               </TableHead>

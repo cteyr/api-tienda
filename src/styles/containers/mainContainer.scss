@@ -16,5 +16,11 @@
     .container-button {
       margin-bottom: 1rem;
     }
+
+    .TextTableHead {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
