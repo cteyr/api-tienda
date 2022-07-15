@@ -13,6 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
 import { DotSpinner } from "@uiball/loaders";
 import orderBy from "lodash/orderBy";
+const numPage = 5;
 
 const MainContainer = () => {
   const [Products, setProducts] = useState<Product[]>([]);
@@ -37,14 +38,14 @@ const MainContainer = () => {
   };
 
   const nextPage = () => {
-    if (currentPage <= Products.length - 10) {
-      setCurrentPage(currentPage + 5);
+    if (currentPage <= Products.length - numPage * 2) {
+      setCurrentPage(currentPage + numPage);
     }
   };
 
   const prevPage = () => {
     if (currentPage >= 5) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - numPage);
     }
   };
 
@@ -53,7 +54,7 @@ const MainContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (currentPage <= 4) {
+    if (currentPage < numPage) {
       setActiveLeftButton(false);
     } else {
       setActiveLeftButton(true);
