@@ -15,6 +15,13 @@
 
     .container-button {
       margin-bottom: 1rem;
+
+      .disabledButton {
+        cursor: not-allowed;
+        color: rgb(229, 229, 229) !important;
+        pointer-events: none;
+        border-color: rgb(229, 229, 229) !important;
+      }
     }
 
     .TextTableHead {

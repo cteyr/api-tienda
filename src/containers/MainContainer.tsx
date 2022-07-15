@@ -18,6 +18,8 @@ const MainContainer = () => {
   const [Products, setProducts] = useState<Product[]>([]);
   const [IsLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [ActiveRightButton, setActiveRightButton] = useState(true);
+  const [ActiveLeftButton, setActiveLeftButton] = useState(true);
   const [Order, setOrder] = useState("asc");
 
   const handleResponse = async () => {
@@ -50,6 +52,20 @@ const MainContainer = () => {
     handleResponse();
   }, []);
 
+  useEffect(() => {
+    if (currentPage <= 4) {
+      setActiveLeftButton(false);
+    } else {
+      setActiveLeftButton(true);
+    }
+
+    if (currentPage >= 15) {
+      setActiveRightButton(false);
+    } else {
+      setActiveRightButton(true);
+    }
+  }, [currentPage]);
+
   const HandelSort = (columnName: string) => {
     if (Order == "asc") {
       let newProductOrder = orderBy(Products, [columnName], [Order]);
@@ -74,6 +90,7 @@ const MainContainer = () => {
             }}
           >
             <Button
+              className={`${ActiveLeftButton ? `` : `disabledButton`}`}
               variant="outlined"
               startIcon={<ArrowBackIcon />}
               onClick={prevPage}
@@ -81,6 +98,7 @@ const MainContainer = () => {
               Prev
             </Button>
             <Button
+              className={`${ActiveRightButton ? `` : `disabledButton`}`}
               variant="outlined"
               startIcon={<ArrowForwardIcon />}
               onClick={nextPage}
@@ -88,7 +106,7 @@ const MainContainer = () => {
               Next
             </Button>
           </Box>
-          <TableContainer sx={{}}>
+          <TableContainer sx={{ height: "60vh" }}>
             <Table sx={{ minWidth: 0 }} aria-label="simple table">
               <TableHead sx={{ width: "100%" }}>
                 <TableRow>
