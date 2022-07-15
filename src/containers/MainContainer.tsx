@@ -83,7 +83,7 @@ const MainContainer = () => {
     <div className="mainContainer">
       {IsLoading ? (
         <div className="container">
-          <h1>Productos ofrecidos por la Tienda</h1>
+          <h1>Productos Ofrecidos por la Tienda</h1>
           <Box
             className="container-button"
             sx={{
@@ -108,7 +108,7 @@ const MainContainer = () => {
               Next
             </Button>
           </Box>
-          <TableContainer sx={{ height: "60vh" }}>
+          <TableContainer sx={{ height: "70vh" }}>
             <Table sx={{ minWidth: 0 }} aria-label="simple table">
               <TableHead sx={{ width: "100%" }}>
                 <TableRow>

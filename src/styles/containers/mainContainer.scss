@@ -9,7 +9,7 @@
   .container {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+
     justify-content: center;
     width: 80vw;
     height: 100vh;
@@ -17,12 +17,23 @@
     h1 {
       text-align: center;
       width: 100%;
-      margin-bottom: 3rem;
+      padding: 3rem 0rem;
       color: #1976d2;
+
+      @media screen and (max-width: 500px) {
+        padding: 2rem 0rem;
+      }
     }
 
     .container-button {
+      display: flex;
+      justify-content: right;
+      width: 100%;
       margin-bottom: 1rem;
+      @media screen and (max-width: 500px) {
+        margin-bottom: 1.5rem;
+        justify-content: center;
+      }
 
       .disabledButton {
         cursor: not-allowed;
