@@ -1,17 +1,13 @@
 import { api } from "../api/api";
 import { useState, useEffect } from "react";
 import { Product } from "../types/product";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import Table from "@mui/material/Table";
-import Button from "@mui/material/Button";
+import { Header } from "../components/Header";
+import { Boton } from "../components/Button";
+import { Tabla } from "../components/Table";
+import { DotSpinner } from "@uiball/loaders";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
-import { DotSpinner } from "@uiball/loaders";
 import orderBy from "lodash/orderBy";
 const numPage = 5;
 
@@ -67,7 +63,7 @@ const MainContainer = () => {
     }
   }, [currentPage]);
 
-  const HandelSort = (columnName: string) => {
+  const HandleSort = (columnName: string) => {
     if (Order == "asc") {
       let newProductOrder = orderBy(Products, [columnName], [Order]);
       setOrder("desc");
@@ -83,82 +79,22 @@ const MainContainer = () => {
     <div className="mainContainer">
       {IsLoading ? (
         <div className="container">
-          <h1>Productos Ofrecidos por la Tienda</h1>
-          <Box
-            className="container-button"
-            sx={{
-              display: "flex",
-              gap: "1rem",
-            }}
-          >
-            <Button
-              className={`${ActiveLeftButton ? `` : `disabledButton`}`}
-              variant="outlined"
-              startIcon={<ArrowBackIcon />}
+          <Header />
+          <Box className="container-button">
+            <Boton
+              icon={<ArrowBackIcon />}
+              text="Prev"
               onClick={prevPage}
-            >
-              Prev
-            </Button>
-            <Button
-              className={`${ActiveRightButton ? `` : `disabledButton`}`}
-              variant="outlined"
-              startIcon={<ArrowForwardIcon />}
+              active={ActiveLeftButton}
+            />
+            <Boton
+              icon={<ArrowForwardIcon />}
+              text="Next"
               onClick={nextPage}
-            >
-              Next
-            </Button>
+              active={ActiveRightButton}
+            />
           </Box>
-          <TableContainer sx={{ height: "70vh" }}>
-            <Table sx={{ minWidth: 0 }} aria-label="simple table">
-              <TableHead sx={{ width: "100%" }}>
-                <TableRow>
-                  <TableCell
-                    align="center"
-                    style={{ width: "50px", backgroundColor: "#2196f3" }}
-                    onClick={() => HandelSort("id")}
-                  >
-                    <span className="TextTableHead">Id</span>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{ width: "400px", backgroundColor: "#2196f3" }}
-                    onClick={() => HandelSort("title")}
-                  >
-                    <span className="TextTableHead">Title</span>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{ width: "150px", backgroundColor: "#2196f3" }}
-                    onClick={() => HandelSort("category")}
-                  >
-                    <span className="TextTableHead">Category</span>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{ width: "150px", backgroundColor: "#2196f3" }}
-                    onClick={() => HandelSort("price")}
-                  >
-                    <span className="TextTableHead">Price</span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody className="Table-Body">
-                {filterProducts().map((product, index) => (
-                  <TableRow
-                    key={product.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" align="center">
-                      {product.id}
-                    </TableCell>
-                    <TableCell align="center">{product.title}</TableCell>
-                    <TableCell align="center">{product.category}</TableCell>
-                    <TableCell align="center">{product.price}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Tabla products={filterProducts()} onClick={HandleSort} />
         </div>
       ) : (
         <DotSpinner size={80} speed={0.9} color="#1e88e5" />
